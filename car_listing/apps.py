@@ -1,0 +1,7 @@
+from django.apps import AppConfig
+
+
+class CarListingConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'car_listing'
+    verbose_name = 'Car Listing'

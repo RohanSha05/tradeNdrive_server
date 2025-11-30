@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Credit Application Form</title>
+    <style>
+        /* @page {
+            margin: 0;
+            padding: 0;
+        } */
+
+        body {
+            font-family: Arial, sans-serif;
+            width: 100%;
+            margin: 5px auto;
+            padding: 5px;
+            text-align: center;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5em;
+            font-weight: bold;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 1.2em;
+            margin: 10px 0 5px;
+        }
+
+        .field-row {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+            justify-items: center;
+        }
+
+        .field {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            min-width: 150px;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 2px;
+            font-size: 1.25em;
+            text-align: center;
+            text-wrap: wrap;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .logo-container {
+            text-align: center;
+        }
+
+        .logo-container img {
+            width: 170px;
+            height: 50px;
+        }
+
+        hr {
+            border: 1px solid black;
+            width: 100%;
+        }
+
+        .text-right {
+            text-align: right;
+            color: rgb(151, 23, 0);
+            font-size: smaller;
+        }
+
+        .section {
+            padding-left: 200px !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="logo-container">
+        <a target="_blank" href="#">
+            <img src="https://i.ibb.co.com/Jwp8FLBb/Isam-Auto-Repair-1024x373.png" alt="Logo" width="100" />
+        </a>
+    </div>
+    <h1>{{ main_applicant.first_name }} {{ main_applicant.last_name }} Spouse / Co-Applicant Information</h1>
+    <p style="font-size: 1.5em; font-weight: 700;" class="text-center">New/Used Vehicle Purchase</p>
+    <p style="font-size: 1.5em; font-weight: 700;" class="text-center">Vehicle Name: {{ main_applicant.car_name }}</p>
+
+    <!-- Personal Information -->
+    <div class="section field">
+        <table class="field-row">
+            <tr class="field-row">
+                <td class="field">
+                    {{ applicant.first_name }}
+                    <hr />
+                    <label>First Name</label>
+                </td>
+                <td class="field">
+                    {{ applicant.middle_name }}
+                    <hr />
+                    <label>Middle Name</label>
+                </td>
+                <td class="field">
+                    {{ applicant.last_name }}
+                    <hr />
+                    <label>Last Name</label>
+                </td>
+            </tr>
+            <tr class="field-row">
+                <td class="field">
+                    {{ applicant.dob_or_registerdate }}
+                    <hr />
+                    <label>Date of Birth</label>
+                </td>
+                <td class="field">
+                    {{ applicant.phone }}
+                    <hr />
+                    <label>Phone Number</label>
+                </td>
+                <td class="field">
+                    {{ applicant.email }}
+                    <hr />
+                    <label>Email</label>
+                </td>
+            </tr>
+            <tr class="field-row">
+                <td class="field-row">
+                    <label>Marital Status:</label>
+                    {{ applicant.marital_status }}
+                </td>
+                <td class="field-row">
+                    {{ applicant.sin }}
+                    <hr />
+                    <span><label>SIN</label></span>
+                </td>
+                <td class="field">
+                    {{ applicant.street_name }}
+                    <hr />
+                    <label>Street Name</label>
+                </td>
+            </tr>
+            <tr class="field-row">
+                <td class="field">
+                    {{ applicant.city }}
+                    <hr />
+                    <label for="city">City</label>
+                </td>
+                <td class="field">
+                    {{ applicant.postal_code }}
+                    <hr />
+                    <label>Postal Code / Zip Code</label>
+                </td>
+                <td class="field">
+                    {{ applicant.province }}
+                    <hr />
+                    <label>Province</label>
+                </td>
+            </tr>
+            <tr class="field-row">
+                <td class="field-row">
+                    <label>Home Ownership: </label>
+                    {{ applicant.home_ownership }}
+                </td>
+                <td style="text-wrap: nowrap;" class="field-row">
+                    <label>Lived in given address?: </label>
+                    {{ applicant.address_duration }}
+                </td>
+            </tr>
+            <tr>
+
+            </tr>
+
+            <tr>
+                <td>
+                    <h2 class="text-center">Employment Information</h2>
+                </td>
+            </tr>
+            <tr class="field-row">
+                <td class="field">
+                    {{ employment.business_name }}
+                    <hr />
+                    <label>Business Name</label>
+                </td>
+                <td class="field">
+                    {{ employment.length_of_employment }}
+                    <hr />
+                    <label>Length of Employment</label>
+                </td>
+                <td class="field">
+                    {{ employment.street_name }}
+                    <hr />
+                    <label>Street Name</label>
+                </td>
+            </tr>
+            <tr class="field-row">
+                <td class="field">
+                    {{ employment.city }}
+                    <hr />
+                    <label>City</label>
+                </td>
+                <td class="field">
+                    {{ employment.province }}
+                    <hr />
+                    <label>Province</label>
+                </td>
+                <td class="field">
+                    {{ employment.postal_code }}
+                    <hr />
+                    <label>Postal Code / Zip Code</label>
+                </td>
+            </tr>
+
+            <tr class="field-row">
+                <td class="field">
+                    {{ employment.position }}
+                    <hr />
+                    <label>Position</label>
+                </td>
+                <td class="field">
+                    {{ employment.department }}
+                    <hr />
+                    <label for="department">Department</label>
+                </td>
+                <td class="field">
+                    {{ employment.gross_monthly_income }}
+                    <hr />
+                    <label>Gross monthly income</label>
+                </td>
+            </tr>
+            <tr>
+                <td class="field">
+                    {{ employment.company_number }}
+                    <hr />
+                    <label>Company Number</label>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div class="text-right">
+        <span>**This document has been automatically generated by the system. For any inquiries or issues, please
+            contact support.</span>
+    </div>
+</body>
+
+</html>

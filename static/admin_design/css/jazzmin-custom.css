@@ -1,0 +1,16 @@
+/* static/admin_design/css/jazzmin-custom.css */
+
+/* --------------------------------------------------
+   Jazzmin: Adjust the login‐screen logo size
+   -------------------------------------------------- */
+
+/* Target the <img> that Jazzmin prints on the login form */
+.login-logo img {
+    /* set your desired size */
+    width: 200px !important;
+}
+
+.user-panel {
+    display: none !important;
+}
+

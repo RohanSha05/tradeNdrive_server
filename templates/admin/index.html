@@ -1,0 +1,35 @@
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block content %}
+<h1 class="mb-4">Welcome to Isam Auto Dashboard</h1>
+
+<div class="row">
+    {% for item in custom_dashboard %}
+    <div class="col-md-4">
+        <div class="card bg-light mb-3 shadow">
+            <div class="card-body">
+                <h5 class="card-title text-dark">{{ item.name }}</h5>
+                <h3 class="card-text text-primary">{{ item.count }}</h3>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="pt-5">
+    <h2>Recent Actions</h2>
+    {% load log %}
+    {% get_admin_log 10 as admin_log %}
+    <ul class="list-group">
+        {% for entry in admin_log %}
+        <li class="list-group-item">
+            {{ entry.action_time }} — {{ entry.user }} — {{ entry.get_change_message }}
+        </li>
+        {% empty %}
+        <li class="list-group-item">No recent actions.</li>
+        {% endfor %}
+    </ul>
+
+</div>
+{% endblock %}
