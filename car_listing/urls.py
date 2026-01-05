@@ -3,7 +3,7 @@ from .views import (
     get_car_listings, get_car_types, get_car_brands, get_car_body_types,
     get_fuel_types, get_drive_types, get_gear_types, get_owner_types,
     get_features, get_car_models, get_model_years, get_car_dealers,
-    get_car_images, get_car_detail
+    get_car_images, get_car_detail, submit_car_review, get_car_reviews
 )
 
 urlpatterns = [
@@ -21,4 +21,6 @@ urlpatterns = [
     path('model-years/',       get_model_years,    name='get_model_years'),
     path('car-dealers/',       get_car_dealers,    name='get_car_dealers'),
     # path('car-images/',        get_car_images,     name='get_car_images'),
+    path('reviews/',           submit_car_review,  name='submit_car_review'),
+    path('reviews/<int:car_id>/', get_car_reviews, name='get_car_reviews'),
 ]

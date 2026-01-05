@@ -190,7 +190,7 @@ from django.template.loader import render_to_string
 from django.conf import settings
 from django.db import transaction
 from io import BytesIO
-from xhtml2pdf import pisa
+# from xhtml2pdf import pisa  # Optional - install if PDF generation is needed
 
 from car_listing.models import CarListing
 from .models import LoanApplication, EmploymentInfo

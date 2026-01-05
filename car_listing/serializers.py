@@ -1,9 +1,9 @@
 from rest_framework import serializers
-from django.db.models import Count
+from django.db.models import Count, Avg
 from .models import (
     CarType, CarBrand, CarBodyType, FuelType, DriveType,
     GearType, OwnerType, Feature, CarModel, ModelYear,
-    CarDealer, CarListing, CarImage
+    CarDealer, CarListing, CarImage, CarReview
 )
 
 
@@ -123,6 +123,13 @@ class CarImageSerializer(serializers.ModelSerializer):
         return None
 
 
+class CarReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CarReview
+        fields = ('id', 'user_name', 'user_email', 'rating', 'comment', 'created_at', 'updated_at')
+        read_only_fields = ('id', 'created_at', 'updated_at')
+
+
 class CarListingSerializer(serializers.ModelSerializer):
     car_type = CarTypeSerializer(read_only=True)
     car_brand = CarBrandSerializer(read_only=True)
@@ -136,7 +143,10 @@ class CarListingSerializer(serializers.ModelSerializer):
     dealer = CarDealerSerializer(read_only=True)
     features = FeatureSerializer(many=True, read_only=True)
     images = CarImageSerializer(many=True, read_only=True)
+    reviews = CarReviewSerializer(many=True, read_only=True)
     featured_image = serializers.SerializerMethodField()
+    average_rating = serializers.SerializerMethodField()
+    total_reviews = serializers.SerializerMethodField()
 
     class Meta:
         model = CarListing
@@ -147,6 +157,13 @@ class CarListingSerializer(serializers.ModelSerializer):
         if featured:
             return CarImageSerializer(featured, context=self.context).data
         return None
+
+    def get_average_rating(self, obj):
+        avg = obj.reviews.aggregate(Avg('rating'))['rating__avg']
+        return round(avg, 1) if avg else 0
+
+    def get_total_reviews(self, obj):
+        return obj.reviews.count()
 
 
 class CarListingSummarySerializer(serializers.ModelSerializer):

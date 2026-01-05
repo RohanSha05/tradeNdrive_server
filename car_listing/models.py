@@ -95,9 +95,9 @@ class ModelYear(models.Model):
 
 
 class CarDealer(models.Model):
-    name = models.CharField(max_length=255, unique=True)
+    name = models.CharField(max_length=191, unique=True)
     image = models.ImageField(upload_to='car_dealers/images/', blank=True, null=True)
-    location_name = models.CharField(max_length=255, null=True, blank=True)
+    location_name = models.CharField(max_length=191, null=True, blank=True)
     location = models.TextField(help_text="Google Maps embed code")
     contact_number = models.CharField(max_length=20, unique=True)
     whatsapp_link = models.URLField(unique=True)
@@ -117,9 +117,9 @@ class CarListing(models.Model):
         ('Sold Car', 'Sold Car'),
     ]
     
-    title = models.CharField(max_length=255, unique=True)
-    slug = models.SlugField(max_length=255, unique=True, blank=True)
-    video_url = models.URLField(max_length=255, null=True, blank=True)
+    title = models.CharField(max_length=191, unique=True)
+    slug = models.SlugField(max_length=191, unique=True, blank=True)
+    video_url = models.URLField(max_length=191, null=True, blank=True)
     carfax = models.FileField(upload_to='car_listings/carfax/', null=True, blank=True)
 
     car_type = models.ForeignKey(CarType, on_delete=models.CASCADE)
@@ -178,3 +178,29 @@ class CarImage(models.Model):
 
     def __str__(self):
         return f"Image for {self.car.title}"
+
+
+class CarReview(models.Model):
+    RATING_CHOICES = [
+        (1, '1 - Poor'),
+        (2, '2 - Fair'),
+        (3, '3 - Good'),
+        (4, '4 - Very Good'),
+        (5, '5 - Excellent'),
+    ]
+
+    car = models.ForeignKey(CarListing, related_name='reviews', on_delete=models.CASCADE)
+    user_name = models.CharField(max_length=255)
+    user_email = models.EmailField()
+    rating = models.PositiveIntegerField(choices=RATING_CHOICES)
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = 'Car Review'
+        verbose_name_plural = 'Car Reviews'
+
+    def __str__(self):
+        return f"Review by {self.user_name} for {self.car.title} ({self.rating}/5)"

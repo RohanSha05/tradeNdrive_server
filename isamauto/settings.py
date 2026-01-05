@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import pymysql
 pymysql.install_as_MySQLdb()
 
+# Patch PyMySQL version to avoid Django 5.2 compatibility check
+pymysql.version_info = (2, 2, 1, "final", 0)
+
 from pathlib import Path
 import os
 
@@ -28,7 +31,7 @@ SECRET_KEY = 'django-insecure-e^*&4@yz&rl99olv7pm$pt*it%9u2%9sca9v*_7ozy@8=n0m#+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['admin.isamauto.ca']
+ALLOWED_HOSTS = ['']
 CSRF_TRUSTED_ORIGINS = [
     'https://admin.isamauto.ca/',
     'http://admin.isamauto.ca',   # optional
@@ -109,22 +112,13 @@ CORS_ALLOW_HEADERS = [
 
 WSGI_APPLICATION = 'isamauto.wsgi.application'
 
-# Database
-# https://docs.djangoproject.com/en/5.2/ref/settings/#databases
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 
 DATABASES = {
     'default': {
         'ENGINE':   'django.db.backends.mysql',
-        'NAME':     'travell2_isamauto',      # your database name
-        'USER':     'travell2_isamauto',      # your MySQL user
-        'PASSWORD': 'sYNraUzY;etH',           # your MySQL password
+        'NAME':     'tradeNdrive',      # your database name
+        'USER':     'root',      # your MySQL user
+        'PASSWORD': '',           # your MySQL password
         'HOST':     'localhost',              # or your DB host/IP
         'PORT':     '3306',                   # default MySQL port
         'OPTIONS': {
@@ -285,3 +279,9 @@ JAZZMIN_UI_TWEAKS = {
     },
     "actions_sticky_top": True
 }
+
+# Import local settings if they exist (for local development)
+try:
+    from .local_settings import *
+except ImportError:
+    pass
